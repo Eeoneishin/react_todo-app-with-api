@@ -6,8 +6,8 @@ type Props = {
   filteredTodos: Todo[];
   loadingTodoIds: number[];
   tempTodo: Todo | null;
-  onDeleteTodo: (todoId: number) => Promise<void>;
-  onUpdateTodo: (todo: Todo) => Promise<void>;
+  handleDeleteTodo: (todoId: number) => Promise<void>;
+  handleUpdateTodo: (todo: Todo) => Promise<void>;
 };
 
 export const TodoList: React.FC<Props> = props => {
@@ -15,8 +15,8 @@ export const TodoList: React.FC<Props> = props => {
     filteredTodos,
     loadingTodoIds,
     tempTodo,
-    onDeleteTodo,
-    onUpdateTodo,
+    handleDeleteTodo,
+    handleUpdateTodo,
   } = props;
 
   const [editedTodo, setEditedTodo] = useState<null | number>(null);
@@ -27,8 +27,8 @@ export const TodoList: React.FC<Props> = props => {
         <TodoItem
           key={todo.id}
           todo={todo}
-          onDeleteTodo={onDeleteTodo}
-          onUpdateTodo={onUpdateTodo}
+          handleDeleteTodo={handleDeleteTodo}
+          handleUpdateTodo={handleUpdateTodo}
           isLoading={loadingTodoIds.includes(todo.id)}
           isInEditMode={editedTodo === todo.id}
           setEditedTodo={setEditedTodo}
@@ -37,8 +37,8 @@ export const TodoList: React.FC<Props> = props => {
       {tempTodo && (
         <TodoItem
           todo={tempTodo}
-          onDeleteTodo={onDeleteTodo}
-          onUpdateTodo={onUpdateTodo}
+          handleDeleteTodo={handleDeleteTodo}
+          handleUpdateTodo={handleUpdateTodo}
           isLoading
         />
       )}

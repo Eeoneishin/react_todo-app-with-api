@@ -35,7 +35,7 @@ export const App: React.FC = () => {
   const filteredTodos = filterTodos(todos, currentFilter);
   const areAllTodosCompleted = todos.every(todo => todo.completed);
 
-  const onAddTodo = async (todoTitle: string) => {
+  const handleAddTodo = async (todoTitle: string) => {
     setTempTodo({
       id: 0,
       title: todoTitle,
@@ -54,7 +54,7 @@ export const App: React.FC = () => {
     }
   };
 
-  const onDeleteTodo = async (todoId: number) => {
+  const handleDeleteTodo = async (todoId: number) => {
     setLoadingTodoIds(prev => [...prev, todoId]);
     try {
       await deleteTodo(todoId);
@@ -110,7 +110,7 @@ export const App: React.FC = () => {
     }
   };
 
-  const onUpdateTodo = async (todoToUpdate: Todo) => {
+  const handleUpdateTodo = async (todoToUpdate: Todo) => {
     setLoadingTodoIds(prev => [...prev, todoToUpdate.id]);
     try {
       const updatedTodo = await updateTodo(todoToUpdate);
@@ -126,17 +126,17 @@ export const App: React.FC = () => {
     }
   };
 
-  const onToggleAll = async () => {
+  const handleToggleAll = async () => {
     setIsToggleAllActive(prevState => !prevState);
     if (activeTodos > 0) {
       const todosActive = todos.filter(todo => !todo.completed);
 
       todosActive.forEach(todo => {
-        onUpdateTodo({ ...todo, completed: true });
+        handleUpdateTodo({ ...todo, completed: true });
       });
     } else {
       todos.forEach(todo => {
-        onUpdateTodo({ ...todo, completed: false });
+        handleUpdateTodo({ ...todo, completed: false });
       });
     }
   };
@@ -161,10 +161,10 @@ export const App: React.FC = () => {
 
       <div className="todoapp__content">
         <Header
-          onAddTodo={onAddTodo}
+          handleAddTodo={handleAddTodo}
           setErrorMessage={setErrorMessage}
           inputRef={inputRef}
-          onToggleAll={onToggleAll}
+          handleToggleAll={handleToggleAll}
           todoLength={todos.length}
           areAllTodosCompleted={areAllTodosCompleted}
         />
@@ -173,8 +173,8 @@ export const App: React.FC = () => {
           <>
             <TodoList
               filteredTodos={filteredTodos}
-              onDeleteTodo={onDeleteTodo}
-              onUpdateTodo={onUpdateTodo}
+              handleDeleteTodo={handleDeleteTodo}
+              handleUpdateTodo={handleUpdateTodo}
               loadingTodoIds={loadingTodoIds}
               tempTodo={tempTodo}
             />
