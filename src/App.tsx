@@ -17,7 +17,7 @@ import { Filters } from './types/Filtres';
 import { ErrorNotification } from './components/ErrorNotification';
 import { filterTodos } from './utils/filterTodos';
 import { ErrorType } from './types/ErrorType';
-import { TodoList } from './components/TodoList';
+import { TodoList } from './components/TodoList/TodoList';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);

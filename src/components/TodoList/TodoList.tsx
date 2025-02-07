@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { TodoItem } from './TodoItem';
-import { Todo } from '../types/Todo';
+import { TodoItem } from '../TodoItem/TodoItem';
+import { Todo } from '../../types/Todo';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import './TodoList.scss';
 
 type Props = {
   filteredTodos: Todo[];
@@ -23,17 +25,21 @@ export const TodoList: React.FC<Props> = props => {
 
   return (
     <section className="todoapp__main" data-cy="TodoList">
-      {filteredTodos.map(todo => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          handleDeleteTodo={handleDeleteTodo}
-          handleUpdateTodo={handleUpdateTodo}
-          isLoading={loadingTodoIds.includes(todo.id)}
-          isInEditMode={editedTodo === todo.id}
-          setEditedTodo={setEditedTodo}
-        />
-      ))}
+      <TransitionGroup component={null}>
+        {filteredTodos.map(todo => (
+          <CSSTransition key={todo.id} timeout={300} classNames="item">
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              handleDeleteTodo={handleDeleteTodo}
+              handleUpdateTodo={handleUpdateTodo}
+              isLoading={loadingTodoIds.includes(todo.id)}
+              isInEditMode={editedTodo === todo.id}
+              setEditedTodo={setEditedTodo}
+            />
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
       {tempTodo && (
         <TodoItem
           todo={tempTodo}

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
-import { Todo } from '../types/Todo';
+import { Todo } from '../../types/Todo';
 import cn from 'classnames';
 
 type Props = {
